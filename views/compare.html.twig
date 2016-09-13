@@ -10,11 +10,15 @@
       <button type="submit" name="button">Submit</button>
       <a href = "/"><button type="button" name="button">Clear All</button></a>
     </form>
-  <h5>These words are anagrams of {{ firstWord.word }}</h5>
+  <h2>These words are anagrams of {{ firstWord.word }}</h2>
   {%for match in matched_words%}
     <p>
-      {{match.word}}
+      {{match}}
     </p>
   {% endfor %}
+  <h2>These are words that have been entered in so far</h2>
+    {%for word in allwords%}
+    <p>{{word.word}}</p>
+    {% endfor%}
   </body>
 </html>
