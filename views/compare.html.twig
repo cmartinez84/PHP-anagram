@@ -4,9 +4,17 @@
     <title>Comparison</title>
   </head>
   <body>
-    <p>{{ firstWord.word }}</p>
+    <form action="/compare" method="post">
+      <label for="">Please enter potential anagrams</label>
+      <input type="text" name="input_word">
+      <button type="submit" name="button">Submit</button>
+      <a href = "/"><button type="button" name="button">Clear All</button></a>
+    </form>
+  <h5>These words are anagrams of {{ firstWord.word }}</h5>
+  {%for match in matched_words%}
     <p>
-      test
+      {{match.word}}
     </p>
+  {% endfor %}
   </body>
 </html>
