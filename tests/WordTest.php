@@ -1,6 +1,10 @@
 <?php
 
     require_once "src/Word.php";
+    session_start();
+    if (empty($_SESSION['list_of_words'])) {
+        $_SESSION['list_of_words'] = array();
+    }
 
     class TemplateTest extends PHPUnit_Framework_TestCase
 
@@ -14,10 +18,26 @@
             $test_cookie = new Word;
             $input = 'beard';
 
-            $result = $test_cookie->wordArray($input);
+            $test_cookie->createWordArray($input);
+            $list_of_words = $_SESSION['list_of_words'];
 
-            $this->assertEquals('abder', $result);
+            $this->assertEquals('abder', $list_of_words[0]->alphaString);
         }
+        function test_word_compare()
+        {
+            $test_cookie = new Word;
+            $input = "bread";
+
+            $test_cookie->createWordArray($input);
+            $result = $test_cookie->isAnagram();
+            // $list_of_words = $_SESSION['list_of_words'];
+            // if($test_cookie->alphaString == $list_of_words[0]->alphaString){
+            //   $result = true;
+            // }
+
+            $this->assertEquals(true, $result);
+        }
+
     }
 
 

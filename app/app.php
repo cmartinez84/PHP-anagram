@@ -4,8 +4,8 @@
     require_once __DIR__."/../src/Word.php";
 
     session_start();
-    if (empty($_SESSION['collection'])) {
-        $_SESSION['collection'] = array();
+    if (empty($_SESSION['list_of_words'])) {
+        $_SESSION['list_of_words'] = array();
     }
 
     $app = new Silex\Application();
@@ -18,13 +18,16 @@
 
   //loads actual twig file
     $app->get("/", function() use ($app) {
-      $word = new Word;
       return $app['twig']->render("home.html.twig");
     });
 
   //loads basic php
-    $app->get("/test", function() use ($app) {
-      var_dump($wordArray);
+    $app->post("/compare", function() use ($app) {
+      $firstWord = new Word($_POST["first_word"]);
+      $firstWord->createWordArray();
+      $firstWord->isAnagram();
+      var_dump ($firstWord);
+      return $app['twig']->render("compare.html.twig", array('firstWord' => $firstWord));
     });
 
     return $app;
